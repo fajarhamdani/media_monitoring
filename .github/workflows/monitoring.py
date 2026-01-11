@@ -7,13 +7,43 @@ from datetime import datetime, timedelta
 import urllib.parse
 
 class JabarAutoMonitor:
-    def __init__(self, excel_file, keyword):
-        self.excel_file = excel_file
+    def __init__(self, keyword):
         self.keyword = keyword
         self.all_results = []
         # Ambil tanggal hari ini dan Kemarin (Year-Month-Day)
         self.today = datetime.now().date()
         self.yesterday = self.today - timedelta(days=1)
+
+        # Daftar wilayah target
+        self.wilayah_data = [
+            {"kabkot": "Kabupaten Bandung"},
+            {"kabkot": "Kabupaten Bandung Barat"},
+            {"kabkot": "Kabupaten Bekasi"},
+            {"kabkot": "Kabupaten Bogor"},
+            {"kabkot": "Kabupaten Ciamis"},
+            {"kabkot": "Kabupaten Cianjur"},
+            {"kabkot": "Kabupaten Cirebon"},
+            {"kabkot": "Kabupaten Garut"},
+            {"kabkot": "Kabupaten Indramayu"},
+            {"kabkot": "Kabupaten Karawang"},
+            {"kabkot": "Kabupaten Kuningan"},
+            {"kabkot": "Kabupaten Majalengka"},
+            {"kabkot": "Kabupaten Pangandaran"},
+            {"kabkot": "Kabupaten Purwakarta"},
+            {"kabkot": "Kabupaten Subang"},
+            {"kabkot": "Kabupaten Sukabumi"},
+            {"kabkot": "Kabupaten Sumedang"},
+            {"kabkot": "Kabupaten Tasikmalaya"},
+            {"kabkot": "Kota Bandung"},
+            {"kabkot": "Kota Banjar"},
+            {"kabkot": "Kota Bekasi"},
+            {"kabkot": "Kota Bogor"},
+            {"kabkot": "Kota Cimahi"},
+            {"kabkot": "Kota Cirebon"},
+            {"kabkot": "Kota Depok"},
+            {"kabkot": "Kota Sukabumi"},
+            {"kabkot": "Kota Tasikmalaya"},
+        ]
 
         # Daftar sumber berita (RSS Feeds)
         self.sources = {
@@ -57,20 +87,12 @@ class JabarAutoMonitor:
                 continue
 
     def run_monitoring(self):
-        # 1. Membaca daftar wilayah dari Excel
-        try:
-            df_wilayah = pd.read_excel(self.excel_file)
-        except Exception as e:
-            print(f"Gagal membaca file Excel: {e}")
-            return
-
         print(f"--- Memulai Monitoring Otomatis untuk '{self.keyword}' ---\n")
         print(f"--- Monitoring Hari Kemarin ({self.yesterday}) s/d Hari Ini ({self.today}) ---\n")
-
-        # 2. Iterasi setiap baris di Excel
-        for index, row in df_wilayah.iterrows():
-            kab = row['kabupaten_kota'].strip()
-            
+        
+        for index, row in enumerate(self.wilayah_data):
+            kab = row['kabkot'].strip()
+    
             print(f"[{index+1}] Memantau Berita yang berkaitan dengan {self.keyword} {kab}")
             
             # 1. Gabungkan query dan bersihkan spasi berlebih
@@ -129,6 +151,5 @@ if __name__ == "__main__":
     # Pastikan file 'daftar_wilayah.xlsx' sudah ada di folder yang sama
     topik = input("Masukkan Jenis Bencana yang ingin dipantau: ")
     
-    # app = JabarAutoMonitor("daftar_wilayah.xlsx", topik)
-    app = JabarAutoMonitor("daftar_wilayah_kabkot.xlsx", topik)
+    app = JabarAutoMonitor(topik)
     app.run_monitoring()
