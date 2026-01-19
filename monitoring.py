@@ -177,7 +177,7 @@ class JabarSmartMonitor:
             # 4. Format ulang tampilan tanggal sebelum disimpan ke Excel
             df_final['Waktu_Publikasi'] = df_final['Waktu_Publikasi'].dt.strftime('%Y-%m-%d %H:%M:%S')
             
-            output_name = f"media_monitoring_{self.keyword}_jabar_{datetime.now().strftime('%Y-%m-%d %H%M%S')}.xlsx"
+            output_name = f"{datetime.now().strftime('%Y-%m-%d %H%M%S')}_media_monitoring_{self.keyword}_jabar.xlsx"
             df_final.to_excel(output_name, index=False)
 
             print(f"\n✅ Monitoring Selesai! Hasil disimpan di: {output_name}")
