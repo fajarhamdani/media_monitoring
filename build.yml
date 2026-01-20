@@ -21,7 +21,7 @@ jobs:
 
       - name: Create EXE with PyInstaller
         # --noconsole agar tidak muncul jendela hitam, atau hapus jika ingin melihat log saat jalan
-        run: pyinstaller --onefile --name "MonitorBeritaJabar_v1" monitoring.py
+        run: pyinstaller --onefile --icon="icon.ico" --name "MediaMonitoring_V3" monitoring.py
 
       - name: Upload Finished EXE
         uses: actions/upload-artifact@v4
