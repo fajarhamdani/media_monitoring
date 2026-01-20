@@ -94,7 +94,7 @@ class JabarSmartMonitor:
                                 'Sumber': source_name,
                                 'Waktu_Publikasi': pub_time.strftime('%Y-%m-%d %H:%M'),
                                 'Jenis Bencana': self.keyword,
-                                'Kabupaten': kab,
+                                'Kab Kota': kab,
                                 'Judul': entry.title,
                                 # 'Sentimen': "Positif" if sentiment_score > 0 else "Negatif" if sentiment_score < 0 else "Netral",
                                 'Link': entry.link
@@ -180,8 +180,52 @@ class JabarSmartMonitor:
 
 # --- EKSEKUSI ---
 if __name__ == "__main__":
-    # Pastikan file 'daftar_wilayah.xlsx' sudah ada di folder yang sama
     topik = input("Masukkan Jenis Bencana yang ingin dipantau: ")
     
     app = JabarSmartMonitor(topik)
     app.run_monitoring()
+
+
+# ============================================================
+#        SMART NEWS & SOCIAL MEDIA MONITORING (v3.0)
+# ============================================================
+
+# Aplikasi ini dirancang untuk memantau berita terkini dan 
+# konten viral dari berbagai sumber (News, Instagram, TikTok) 
+# berdasarkan wilayah Kabupaten, Kecamatan, dan Desa di Jawa Barat.
+
+# CARA PENGGUNAAN:
+# ----------------
+# 1.  Klik dua kali pada file 'MediaMonitoring_V3.exe'.
+# 2.  Sebuah jendela hitam (Terminal) akan terbuka.
+# 3.  Tunggu hingga proses monitoring selesai. Aplikasi akan 
+#     memproses wilayah satu per satu.
+# 4.  Laporan hasil pemantauan akan otomatis tersimpan dalam 
+#     format Excel (.xlsx) di folder yang sama dengan aplikasi.
+
+# FITUR UTAMA:
+# ------------
+# - Pencarian Berita Lokal (Antara Jabar, Republika, dll).
+# - Deteksi Konten Viral (Instagram & TikTok).
+# - Analisis Sentimen Otomatis (Positif, Negatif, Netral).
+# - Laporan Terstruktur dalam format Excel.
+
+# MASALAH YANG MUNGKIN TERJADI (FAQ):
+# -----------------------------------
+# 1. Windows Defender / Antivirus Muncul:
+#    Karena aplikasi ini dibuat secara mandiri (tidak memiliki 
+#    sertifikat berbayar), Windows mungkin akan menampilkan 
+#    "Windows protected your PC".
+#    SOLUSI: Klik "More Info" lalu pilih "Run Anyway".
+
+# 2. Error Koneksi (Rate Limit):
+#    Jika aplikasi berhenti lama atau muncul pesan "Rate Limited", 
+#    itu berarti Google membatasi akses sementara. 
+#    Aplikasi akan otomatis mencoba lagi (Retry) dalam beberapa menit.
+
+# 3. File Excel Tidak Terbuka:
+#    Pastikan Anda telah menutup file Excel hasil monitoring 
+#    sebelum menjalankan ulang aplikasi untuk menghindari error.
+
+# Dibuat untuk monitoring efisien tingkat kewilayahan.
+# ============================================================
