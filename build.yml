@@ -27,4 +27,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Aplikasi_Monitoring_Windows
-          path: dist/MonitorBeritaJabar_v1.exe
+          path: dist/MediaMonitoring_V3.exe
