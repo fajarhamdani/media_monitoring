@@ -20,6 +20,8 @@ class JabarSmartMonitor:
         # Ambil tanggal hari ini dan Kemarin (Year-Month-Day)
         self.today = datetime.now().date()
         self.yesterday = self.today - timedelta(days=1)
+        self.seen_links = set()
+        self.trending_tags = ["viral", "info", "terkini", "update", "hot", "populer", "hits", "terbaru", "explore", "fyp", "foryoupage", "trending", "news", "breaking", "headline", "berita", "jabar", "jawa barat", "bandung", "lembang", "bandung utara", "puncak bogor", "depok", "bekasi", "bogor", "sukabumi", "tasikmalaya", "tasik", "cimahi", "karawang", "purwakarta", "subang", "indramayu", "cirebon", "garut", "sumedang", "ciamis", "kuningan", "majalengka", "pangandaran", "bandung barat", "kbb", "cianjur", "ciamis", "banjar", "banjir", "longsor", "gempa", "angin kencang", "puting beliung", "tanah longsor", "banjir bandang", "erupsi", "gunung meletus", "kebakaran hutan", "kebakaran lahan", "bencana alam", "bencana", "darurat", "evakuasi", "tanggap darurat", "pohon tumbang", "jalan putus", "jembatan putus", "luapan sungai", "hujan deras", "tsunami", "letusan gunung", "gunung api", "cuaca ekstrem", "angin kencang", "hujan lebat", "banjir rob", "banjir pesisir", "angin puting beliung", "kebakaran", "bencana banjir", "bencana longsor", "bencana gempa", "bencana angin", "bencana tanah longsor", "bencana erupsi", "bencana kebakaran", "bencana cuaca ekstrem", "info bencana", "update bencana", "berita bencana", "tanggap bencana", "bencana banjir bandang", "bencana alam jabar", "bencana jawa barat", "bencana di jabar", "bencana di jawa barat", "bencana di bandung", "bencana di bekasi", "bencana di bogor", "bencana di sukabumi", "bencana di tasikmalaya", "bencana di cimahi", "bencana di karawang", "bencana di purwakarta", "bencana di subang", "bencana di indramayu", "bencana di cirebon", "bencana di garut", "bencana di sumedang", "bencana di ciamis", "bencana di kuningan", "bencana di majalengka", "bencana di pangandaran", "bencana di bandung barat", "info bencana jabar", "info bencana jawa barat", "info bencana bandung", "info bencana bekasi", "info bencana bogor", "info bencana sukabumi", "info bencana tasikmalaya", "info bencana cimahi", "info bencana karawang", "info bencana purwakarta", "info bencana subang", "info bencana indramayu", "info bencana cirebon", "info bencana garut", "info bencana sumedang", "info bencana ciamis", "info bencana kuningan", "info bencana majalengka", "info bencana pangandaran", "info bencana bandung barat", "update bencana jabar", "update bencana jawa barat", "update bencana bandung", "update bencana bekasi", "update bencana bogor", "update bencana sukabumi", "update bencana tasikmalaya", "update bencana cimahi", "update bencana karawang", "update bencana purwakarta", "update bencana subang", "update bencana indramayu", "update bencana cirebon", "update bencana garut", "update bencana sumedang", "update bencana ciamis", "update bencana kuningan", "update bencana majalengka", "update bencana pangandaran", "update bencana bandung barat", "berita bencana jabar", "berita bencana jawa barat", "berita bencana bandung", "berita bencana bekasi", "berita bencana bogor", "berita bencana sukabumi", "berita bencana tasikmalaya", "berita bencana cimahi", "berita bencana karawang", "berita bencana purwakarta", "berita bencana subang", "berita bencana indramayu", "berita bencana cirebon", "berita bencana garut", "berita bencana sumedang", "berita bencana ciamis", "berita bencana kuningan", "berita bencana majalengka", "berita bencana pangandaran", "berita bencana bandung barat", "batununggal", "ujungberung", "cibiru", "cileunyi", "cimenyan", "cidadap", "arcamanik", "antapani", "panyileukan", "kiaracondong", "bojongloa kidul", "bojongloa kaler", "lengkong", "sukajadi", "cicendo", "bandung kulon", "bandung wetan", "sumur bandung", "andir", "regol", "astanaanyar", "mandalajati", "cinambo", "rancasari", "batununggal", "ujung berung", "cibiru", "cileunyi", "cimenyan", "cidadap", "arcamanik", "antapani", "panyileukan", "kiaracondong", "bojongloa kidul", "bojongloa kaler", "lengkong", "sukajadi", "cicendo", "bandung kulon", "bandung wetan", "sumur bandung", "andir", "regol", "astana anyar", "mandalajati", "cinambo", "rancasari", "cileungsi", "cibinong", "tajur halang", "bojong gede", "gunung putri", "ciomas", "ciherang", "jasinga", "parung", "rancabungur", "sukajaya", "sukamakmur", "tajur", "cileungsi", "cibinong", "tajur halang", "bojong gede", "gunung putri", "ciomas", "ciherang", "jasinga", "parung", "rancabungur", "sukajaya", "sukamakmur", "lembang", "ciwidey", "dayeuhkolot", "banjaran", "cimenyan", "ciparay", "pangalengan", "rancaekek", "soreang", "cicalengka", "katapang", "ciwidey", "dayeuh kolot", "banjaran", "cimenyan", "cikakak", "panumbangan", "langkaplancar", "parigi", "cihampelas", "cisompet", "cibalong", "pamarican", "sukaresik", "cikakak", "panumbangan", "langkap lancar", "parigi", "cihampelas", "cisompet", "cibalong", "pamarican", "sukaresik", "jatinangor", "sumedang selatan", "sumedang utara", "cimalaka", "tanjungsari", "ganeas", "pamulihan", "rancakalong", "jatinangor", "sumedang selatan", "sumedang utara", "cimalaka", "tanjung sari", "ganeas", "pamulihan", "rancakalong", "cibeber", "cikadongdong", "cigugur", "cijulang", "langkaplancar", "pangandaran", "parigi", "cibeber", "cikadongdong", "cigugur", "cijulang", "langkap lancar", "pangandaran", "parigi", "kopo", "wanaraja", "malangbong", "sindangagung", "cikajang", "cibatu", "cikelet", "singajaya", "kopo", "wanaraja", "malangbong", "sindang agung", "cikajang", "cibatu", "cikelet", "singajaya", "cipatujah", "mangunjaya", "pancatengah", "cibalong", "pamarican", "sukaresik", "cipatujah", "mangunjaya", "pancatengah", "cibalong", "pamarican", "sukaresik", "cikoneng", "kedawung", "plumbon", "kapetakan", "aranis", "gede", "cikedung", "cikoneng", "kedawung", "plumbon", "kapetakan", "aranis", "gede", "losarang", "gabuswetan", "pangenan", "jatisari", "karangsembung", "plumbon", "losarang", "gabuswetan", "pangenan", "jatisari", "karangsembung", "cilimus", "jamblang", "arjawinangun", "gede", "cikedung", "cilimus", "jamblang", "arjawinangun", "gede", "sukasari", "limo", "cilodong", "bojong gede", "cimanggis", "cinere", "cinangka", "sukmajaya", "sukasari", "limo", "cilodong", "bojong gede", "cimanggis", "cinere", "cinangka", "sukmajaya", "cibingbin", "cigugur", "lumbung", "kertasari", "melong", "sukahaji", "sukaresik", "cibingbin", "cigugur", "lumbung", "kertasari", "melong", "sukahaji", "sukaresik", "losari", "gabuswetan", "pangenan", "jatisari", "karangsembung", "losari", "gabuswetan", "pangenan", "jatisari", "karangsembung", "klangenan", "karangjaya", "lelea", "sedong", "jatisari", "plumbon", "klangenan", "karangjaya", "lelea", "sedong", "jatisari", "plumbon", "sukahaji", "cigugur", "lumbung", "kertasari", "melong", "sukahaji", "cigugur", "lumbung", "kertasari", "melong", "kertajati", "sindangwangi", "dawuan", "jatisari", "lelea", "kertajati", "sindangwangi", "dawuan", "jatisari", "lelea", "wado", "cimalaka", "tanjungsari", "ganeas", "pamulihan", "rancakalong", "wado", "cimalaka", "tanjung sari", "ganeas", "pamulihan", "rancakalong", "cikedung", "cikoneng", "kedawung", "plumbon", "kapetakan", "aranis", "cikedung", "cikoneng", "kedawung", "plumbon", "kapetakan", "aranis", "cantigi", "cimaragas", "pamarican", "sukaresik", "cipatujah", "mangunjaya", "pancatengah", "cantigi", "cimaragas", "pamarican", "sukaresik", "cipatujah", "mangunjaya", "pancatengah", "cisalak", "cijulang", "langkaplancar", "pangandaran", "parigi", "cisalak", "cijulang", "langkap lancar", "pangandaran", "parigi", "pamanukan", "purwadadi", "tegalwaru", "jatisari", "karangsembung", "pamanukan", "purwadadi", "tegalwaru", "jatisari", "karangsembung", "jatiluhur", "purwakarta", "sukasari", "wanayasa", "jatisari", "jatiluhur", "purwakarta", "sukasari", "wanayasa", "cibatu", "cikajang", "cikelet", "singajaya", "kopo", "cibatu", "cikajang", "cikelet", "singajaya", "kopo", "rengasdengklok", "tarumajaya", "jatiasih", "setu", "bojongmangu", "cibarusah", "serang baru", "rengasdengklok", "tarumajaya", "jatiasih", "setu", "bojongmangu", "cibarusah", "serang baru", "bangunrejo", "kedungwaringin", "cibitung", "sukawangi", "sukatani", "lembaran", "bangunrejo", "kedungwaringin", "cibitung", "sukawangi", "sukatani", "lembaran", "mukmin", "tarumajaya", "jatiasih", "setu", "bojongmangu", "cibarusah", "serang baru", "mukmin", "tarumajaya", "jatiasih", "setu", "bojongmangu", "cibarusah", "serang baru", "cibitung", "kedungwaringin", "sukawangi", "sukatani", "lembaran", "cibitung", "kedungwaringin", "sukawangi", "sukatani", "lembaran", "cikarang barat", "cikarang selatan", "cikarang utara", "cikarang pusat", "cibarusah", "cilamaya", "tarumajaya", "cikarang barat", "cikarang selatan", "cikarang utara", "cikarang pusat", "cibarusah", "cilamaya", "tarumajaya", "parongpong", "cisauk", "pamulang", "serpong", "setu", "cisauk", "pamulang", "serpong", "setu", "padalarang", "ngamprah", "cipatat", "cililin", "cikalongwetan", "cipongkor", "cisurupan", "padalarang", "ngamprah", "cipatat", "cililin", "cikalongwetan", "cipongkor", "cisurupan", "cikole", "cipanas", "sukasari", "lembang", "ciwidey", "cikalongwetan", "cikole", "cipanas", "sukasari", "lembang", "ciwidey", "cikalongwetan", "regol", "andr", "astanaanyar", "mandalajati", "cinambo", "rancasari", "batununggal", "ujungberung", "cibiru", "cileunyi", "cimenyan", "cidadap", "arcamanik", "antapani", "panyileukan", "kiaracondong", "bojongloa kidul", "bojongloa kaler", "lengkong", "sukajadi", "cicendo", "bandung kulon", "bandung wetan", "sumur bandung", "regol", "andir", "astana anyar", "mandalajati", "cinambo", "rancasari", "cimanggis", "cinere", "cinangka", "sukmajaya", "sukasari", "limo", "cilodong", "bojong gede", "cimanggis", "cinere", "cinangka", "sukmajaya", "sukasari", "limo", "cilodong", "bojong gede", "cihideung", "cigugur", "lumbung", "kertasari", "melong", "sukahaji", "cihideung", "cigugur", "lumbung", "kertasari", "melong", "sukahaji", "tawang", "cimalaka", "tanjungsari", "ganeas", "pamulihan", "rancakalong", "tawang", "cimalaka", "tanjung sari", "ganeas", "pamulihan", "rancakalong", "pataruman", "cikedung", "cikoneng", "kedawung", "plumbon", "kapetakan", "aranis", "pataruman", "cikedung", "cikoneng", "kedawung", "plumbon", "kapetakan", "aranis", "langensari", "cijulang", "langkaplancar", "pangandaran", "parigi", "langensari", "cijulang", "langkap lancar", "pangandaran", "parigi"]
 
         # Daftar wilayah target
         self.wilayah_data = [
@@ -44,16 +46,13 @@ class JabarSmartMonitor:
             {"kabkot": "Banjar"},
             {"kabkot": "Cimahi"},
             {"kabkot": "Depok"},
+            {"kabkot": "Jawa Barat"},
         ]
 
         # Daftar sumber berita (RSS Feeds)
         self.sources = {
-          "Google News": "https://news.google.com/rss/search?q={query}&hl=id&gl=ID&ceid=ID:id",
-          "Antara News": "https://www.antaranews.com/rss/terkini.xml",
-          "Republika": "https://www.republika.co.id/rss/",
-          "Antara Jabar": "https://jabar.antaranews.com/rss/terkini.xml",
-          "Republika Jabar": "https://www.republika.co.id/rss/nusantara/jawa-barat",
-          "Tempo": "https://rss.tempo.co/index.php/teks/terkini"
+          "Top Stories": "https://news.google.com/rss/search?q={query}?+when:1d&hl=id&gl=ID&ceid=ID:id",
+          "Google News": "https://news.google.com/rss/search?q={query}&hl=id&gl=ID&ceid=ID:id"
         }
 
     # def fetch_feed(self, url, source_name, kab, kec):
@@ -74,8 +73,13 @@ class JabarSmartMonitor:
                     retries += 1
                     continue
 
-                for entry in feed.entries[:5]:
+                for entry in feed.entries:
                     try:
+                        # Validasi Duplikasi Link
+                        current_link = entry.link
+                        if current_link in self.seen_links:
+                            continue # Lewati jika link sudah pernah ditemukan sebelumnya
+
                         # Parsing tanggal publikasi
                         pub_time = datetime.fromtimestamp(time.mktime(entry.published_parsed))
                         pub_date = pub_time.date()
@@ -87,17 +91,19 @@ class JabarSmartMonitor:
                         # Cek apakah berita relevan dengan wilayah atau keyword
                         is_relevant = any(x.lower() in (title + content) for x in [self.keyword, kab])
 
+                        self.seen_links.add(current_link)
+
                         # Filter: Harus Hari Ini/Kemarin dan Relevan
                         if (pub_date == self.yesterday or pub_date == self.today) and is_relevant:
                             sentiment_score = TextBlob(entry.title).sentiment.polarity
                             self.all_results.append({
                                 'Sumber': source_name,
-                                'Waktu_Publikasi': pub_time.strftime('%Y-%m-%d %H:%M'),
+                                'Waktu_Publikasi': pub_time.strftime('%Y-%m-%d'),
                                 'Jenis Bencana': self.keyword,
                                 'Kab Kota': kab,
                                 'Judul': entry.title,
                                 # 'Sentimen': "Positif" if sentiment_score > 0 else "Negatif" if sentiment_score < 0 else "Netral",
-                                'Link': entry.link
+                                'Link': current_link
                             })
                     except:
                         continue
@@ -114,10 +120,13 @@ class JabarSmartMonitor:
         print(f"--- Memulai Monitoring Otomatis untuk '{self.keyword}' ---\n")
         print(f"--- Monitoring Hari Kemarin ({self.yesterday}) s/d Hari Ini ({self.today}) ---\n")
         
+        # Gabungkan trending tags menjadi string untuk query: (viral OR hot OR ...)
+        trending_query = "(" + " OR ".join(self.trending_tags) + ")"
+
         for index, row in enumerate(self.wilayah_data):
             kab = row['kabkot'].strip()
     
-            print(f"[{index+1}] Memantau Berita dan Media Sosial yang berkaitan dengan {self.keyword} {kab}")
+            print(f"[{index+1}] Memantau Media Online dan Media Sosial tentang {self.keyword} {kab}")
             
             # 1. Gabungkan query dan bersihkan spasi berlebih
             query_raw = f"{self.keyword} {kab}"
@@ -126,25 +135,22 @@ class JabarSmartMonitor:
             # 2. Encode query agar aman untuk URL (mengubah spasi jadi %20 atau +)
             query_encoded = urllib.parse.quote(query_clean)
 
-            # 3. Cek via Google News (Spesifik wilayah)
+            # 3. Cek via Google News (Top Stories)
+            url_top = self.sources["Google News"].format(query=query_encoded)
+            self.fetch_feed(url_top, "Media Online", kab)
+
+            # 4. Cek via Google News (Spesifik wilayah)
             google_url = self.sources["Google News"].format(query=query_encoded)
-            self.fetch_feed(google_url, "Google News", kab)
+            self.fetch_feed(google_url, "Media Online", kab)
 
-            # 4. Instagram Search via Google
+            # 5. Instagram
             # Searches for the keyword + location on instagram.com
-            query_ig = urllib.parse.quote(f"site:instagram.com {self.keyword} {kab}")
-            self.fetch_feed(self.sources["Google News"].format(query=query_ig), "Instagram (via Google)", kab)
+            query_ig = urllib.parse.quote(f"site:instagram.com {self.keyword} {kab} {trending_query} when:1d")
+            self.fetch_feed(self.sources["Google News"].format(query=query_ig), "Instagram", kab)
 
-            # 5. TikTok Search via Google
-            query_tt = urllib.parse.quote(f"site:tiktok.com {self.keyword} {kab}")
-            self.fetch_feed(self.sources["Google News"].format(query=query_tt), "TikTok (via Google)", kab)
-
-            # 6. Cek Sumber Lain (RSS Terkini)
-            # cek sekali untuk setiap sumber non-Google agar tidak redundan
-            if index == 0: # Cek feed umum hanya di iterasi pertama
-                for name, url in self.sources.items():
-                    if name != "Google News":
-                        self.fetch_feed(url, name, kab)
+            # 6. TikTok
+            query_tt = urllib.parse.quote(f"site:tiktok.com {self.keyword} {kab} {trending_query} when:1d")
+            self.fetch_feed(self.sources["Google News"].format(query=query_tt), "TikTok", kab)
 
             # IMPORTANT: Randomized sleep between EVERY sub-query
             wait_time = random.uniform(3.0, 7.0) 
@@ -163,13 +169,13 @@ class JabarSmartMonitor:
             df_final['Waktu_Publikasi'] = pd.to_datetime(df_final['Waktu_Publikasi'], errors='coerce')
 
             # 2. Hapus baris jika ada yang gagal dikonversi (NaT)
-            df_final = df_final.dropna(subset=['Waktu_Publikasi'])
+            # df_final = df_final.dropna(subset=['Waktu_Publikasi'])
 
             # 3. Sort Descending berdasarkan Waktu_Publikasi (Terbaru di atas)
             df_final = df_final.sort_values(by='Waktu_Publikasi', ascending=False)
             
             # 4. Format ulang tampilan tanggal sebelum disimpan ke Excel
-            df_final['Waktu_Publikasi'] = df_final['Waktu_Publikasi'].dt.strftime('%Y-%m-%d %H:%M:%S')
+            df_final['Waktu_Publikasi'] = df_final['Waktu_Publikasi'].dt.strftime('%Y-%m-%d')
             
             output_name = f"{datetime.now().strftime('%Y-%m-%d %H%M%S')}_media_monitoring_{self.keyword}_jabar.xlsx"
             df_final.to_excel(output_name, index=False)
